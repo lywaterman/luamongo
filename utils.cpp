@@ -168,7 +168,23 @@ static void lua_append_bson(lua_State *L, const char *key, int stackpos, BSONObj
                         lua_pop(L, 1);
                     }
 
-                    builder->appendArray(key, b.obj());
+                    if (len == 0) {
+                        int res = luaL_getmetafield(L, -1, "is_hash");
+
+                        if (res == 0) {
+                            builder->appendArray(key, b.obj());
+                        } else {
+                            int is_hash = lua_toboolean(L, -1);
+                            lua_pop(L, 1); 
+                            if (is_hash) {
+                                builder->append(key, b.obj());
+                            } else {
+                                builder->appendArray(key, b.obj());
+                            }   
+                        }   
+                    } else {
+                        builder->appendArray(key, b.obj());
+                    }   
                 } else {
                     for (lua_pushnil(L); lua_next(L, stackpos); lua_pop(L, 1)) {
                         switch (lua_type(L, -2)) { // key type
