@@ -1,5 +1,8 @@
 # A Lua driver for mongodb
 
+this driver is tested on before mongodb cxx driver legacy-1.00, if you want to use legacy-1.00 or after, please
+use luamongo1.00
+
 ## Wiki Documentation
 
  * <a href="https://github.com/moai/luamongo/wiki/Bsontypes">BsonTypes</a>
