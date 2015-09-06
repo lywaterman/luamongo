@@ -1,5 +1,5 @@
 CC= g++
-CFLAGS= -g -O2 -shared -fPIC -I /usr/include/lua5.1/ -I/usr/local/include/mongo/
+CFLAGS= -g -O2 -shared -fPIC -I /usr/include/lua5.1/ -I/root/mongo-cxx-driver-legacy-0.9.0/build/install/include/ -I/root/mongo-cxx-driver-legacy-0.9.0/build/install/include/mongo/
 AR= ar rcu
 RANLIB= ranlib
 RM= rm -f
@@ -17,6 +17,7 @@ clean:
 
 luamongo: $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $(OUTLIB) $(LDFLAGS)
+	strip mongo.so
 
 echo:
 	@echo "CC = $(CC)"
