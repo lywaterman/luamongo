@@ -108,7 +108,7 @@ static int gridfs_find_file(lua_State *L) {
 static int gridfs_list(lua_State *L) {
     GridFS *gridfs = userdata_to_gridfs(L, 1);
 
-    auto_ptr<DBClientCursor> autocursor = gridfs->list();
+    std::auto_ptr<DBClientCursor> autocursor = gridfs->list();
 
     if (!autocursor.get()) {
         lua_pushnil(L);

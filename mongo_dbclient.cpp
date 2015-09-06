@@ -663,7 +663,7 @@ static int dbclient_exists(lua_State *L) {
 static int dbclient_gen_index_name(lua_State *L) {
     DBClientBase *dbclient = userdata_to_dbclient(L, 1);
 
-    string name = "";
+    std::string name = "";
 
     try {
         int type = lua_type(L, 2);
@@ -699,7 +699,7 @@ static int dbclient_get_indexes(lua_State *L) {
     DBClientBase *dbclient = userdata_to_dbclient(L, 1);
     const char *ns = luaL_checkstring(L, 2);
 
-    auto_ptr<DBClientCursor> autocursor = dbclient->getIndexes(ns);
+    std::auto_ptr<DBClientCursor> autocursor = dbclient->getIndexes(ns);
 
     if (!autocursor.get()) {
         lua_pushnil(L);
@@ -794,7 +794,7 @@ static int dbclient_reset_index_cache(lua_State *L) {
 static int dbclient_get_last_error(lua_State *L) {
     DBClientBase *dbclient = userdata_to_dbclient(L, 1);
 
-    string result = dbclient->getLastError();
+    std::string result = dbclient->getLastError();
     lua_pushlstring(L, result.c_str(), result.size());
     return 1;
 }
